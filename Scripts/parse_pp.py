@@ -2,25 +2,24 @@ import re
 import numpy as np
 
 class Parse_pp:
-    def __init__(self):
-        self.x = 'x="([\-\.0-9]+)"'
-        self.y = 'y="([\-\.0-9]+)"'
-        self.z = 'z="([\-\.0-9]+)"'
-        self.name = 'name="([0-9]+)"'
+    x = 'x="([\-\.0-9]+)"'
+    y = 'y="([\-\.0-9]+)"'
+    z = 'z="([\-\.0-9]+)"'
+    name = 'name="([0-9]+)"'
 
     """
     Method which takes .pp file opens it and returns tuples of parsed positions of landmarks
     """
     @staticmethod
-    def parsePP(self, file):
+    def parsePP(file):
         inputFile = open(file)
 
         fps = []
         for line in inputFile.readlines():
-            fp_name = re.search(self.name, line)
-            fp_x = re.search(self.x, line)
-            fp_y = re.search(self.y, line)
-            fp_z = re.search(self.z, line)
+            fp_name = re.search(Parse_pp.name, line)
+            fp_x = re.search(Parse_pp.x, line)
+            fp_y = re.search(Parse_pp.y, line)
+            fp_z = re.search(Parse_pp.z, line)
 
             if(fp_name == None):
                 continue
@@ -40,6 +39,19 @@ class Parse_pp:
 
         return tuple(pp[1], pp[2], pp[3])
 
+    """
+    Creates array containing model_name as first entry and dictionary (having landmark number for key)
+    with landmark type and position as second entry.
+    """
+    @staticmethod
+    def returnModel(pp_dic, model_name):
+        dic = dict()
+
+        for entry in pp_dic:
+            dic[entry[0]] = returnVector(entry)
+
+        final_model = [model_name, dic]
+        return final_model
 
     """
     Method ditches name of the landmark and return only its position as numpy array
