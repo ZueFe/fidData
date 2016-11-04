@@ -24,7 +24,7 @@ class Parse_pp:
             if(fp_name == None):
                 continue
 
-            fps.append((fp_name.group(1), fp_x.group(1), fp_y.group(1), fp_z.group(1)))
+            fps.append((int(fp_name.group(1)), float(fp_x.group(1)), float(fp_y.group(1)), float(fp_z.group(1))))
 
         return fps
 
@@ -48,7 +48,7 @@ class Parse_pp:
         dic = dict()
 
         for entry in pp_dic:
-            dic[entry[0]] = returnVector(entry)
+            dic[entry[0]] = tuple([entry[1], entry[2], entry[3]])
 
         final_model = [model_name, dic]
         return final_model
@@ -57,7 +57,7 @@ class Parse_pp:
     Method ditches name of the landmark and return only its position as numpy array
     """
     @staticmethod
-    def returnNumVector(pp_tuple):
+    def returnNumVector(self, pp_tuple):
         if len(pp_tuple) != 4:
             return None #error
 
