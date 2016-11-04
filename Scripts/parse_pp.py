@@ -2,9 +2,9 @@ import re
 import numpy as np
 
 class Parse_pp:
-    x = 'x="([\-\.0-9]+)"'
-    y = 'y="([\-\.0-9]+)"'
-    z = 'z="([\-\.0-9]+)"'
+    x = 'x="([\-\.0-9e]+)"'
+    y = 'y="([\-\.0-9e]+)"'
+    z = 'z="([\-\.0-9e]+)"'
     name = 'name="([0-9]+)"'
 
     """
@@ -24,7 +24,12 @@ class Parse_pp:
             if(fp_name == None):
                 continue
 
-            fps.append((int(fp_name.group(1)), float(fp_x.group(1)), float(fp_y.group(1)), float(fp_z.group(1))))
+            final_name = int(fp_name.group(1))
+            final_x = float(fp_x.group(1))
+            final_y = float(fp_y.group(1))
+            final_z = float(fp_z.group(1))
+
+            fps.append([final_name, final_x, final_y, final_z])
 
         return fps
 

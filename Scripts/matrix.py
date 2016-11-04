@@ -17,11 +17,10 @@ class Matrix(object):
 
         for i in range(0, len(fps)):
             #if i not in fps or
-            """if i in ignore:
-                a[i-1] = [0, 0, 0]
-
-            else:"""
-            a[i] = list(fps[i+1])
+            if (i + 1) not in fps or (i + 1) in ignore:
+                a[i] = [0, 0, 0]
+            else:
+                a[i] = list(fps[i+1])
 
         return a
 
